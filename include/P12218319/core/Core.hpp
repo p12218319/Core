@@ -20,6 +20,48 @@
 
 #include <stdexcept>
 
+// OS and platform
+
+#define P12218319_WINDOWS 0
+#define P12218319_LINUX 1
+#define P12218319_MAC 2
+
+#define P12218319_X86 0
+#define P12218319_X64 1
+
+#ifdef _WIN32
+	#define P12218319_OS P12218319_WINDOWS
+	
+	#ifdef _WIN64
+		#define P12218319_PLATFORM P12218319_X64
+	#else
+		#define P12218319_PLATFORM P12218319_X86
+	#endif
+	
+#endif
+
+#ifdef __gnu_linux__
+	#define P12218319_OS P12218319_LINUX
+	//! \todo Detect linux platform
+	#define P12218319_PLATFORM P12218319_X86
+#endif
+
+#ifdef __APPLE__ 
+	#define P12218319_OS P12218319_MAC
+	//! \todo Detect mac platform
+	#define P12218319_PLATFORM P12218319_X86
+#endif
+
+#ifndef P12218319_OS
+	#error P12218319 Core : Unknown OS
+#endif
+
+#ifndef P12218319_PLATFORM
+	#error P12218319 Core : Unknown target platform
+#endif
+
+// Compile options
+
 #define P12218319_STATIC_COMPILE 0
 #define P12218319_DYNAMIC_EXPORT_COMPILE 1
 #define P12218319_DYNAMIC_IMPORT_COMPILE 2
@@ -44,6 +86,7 @@
 
 #define P12218319_CALL __stdcall
 
+// Shortcuts
 
 #ifndef P12218319_STATIC_ASSERT
 	#define P12218319_STATIC_ASSERT(aCondition, aMessage) static_assert(aCondition, aMessage)
