@@ -88,12 +88,56 @@ namespace P12218319 {
 			//! \todo Implement Executable i/o streams
 			
 			// Initialise
+			enum {BUFFER_SIZE = 1024};
+			uint8_t buffer[BUFFER_SIZE];
+			HANDLE stdInRead = NULL;
+			HANDLE stdInWrite = NULL;
+			HANDLE stdOutRead = NULL;
+			HANDLE stdOutWrite = NULL;
+			HANDLE stdErrRead = NULL;
+			HANDLE stdErrWrite = NULL;
+			SECURITY_ATTRIBUTES attributes;
 			STARTUPINFOA startupInfo;
 			PROCESS_INFORMATION processInfo;
 
 			ZeroMemory(&startupInfo, sizeof(STARTUPINFOA));
 			startupInfo.cb = sizeof(STARTUPINFOA);
+			startupInfo.hStdError = stdErrWrite;
+			startupInfo.hStdOutput = stdOutWrite;
+			startupInfo.hStdInput = stdInRead;
+			startupInfo.dwFlags |= STARTF_USESTDHANDLES;
 			ZeroMemory(&processInfo, sizeof(PROCESS_INFORMATION));
+			ZeroMemory(&attributes, sizeof(SECURITY_ATTRIBUTES));
+			attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
+			attributes.bInheritHandle = TRUE;
+			attributes.lpSecurityDescriptor = NULL;
+
+			// Redirect i/o
+			
+			if(! CreatePipe(&stdErrRead, &stdErrWrite, &attributes, 0)) throw std::runtime_error("P12218319::Executable : Failed to create pipe stderr");
+			//if(! SetHandleInformation(&stdErrRead, HANDLE_FLAG_INHERIT, 0)) throw std::runtime_error("P12218319::Executable : Failed to pipe stderr");
+
+			if(! CreatePipe(&stdOutRead, &stdOutWrite, &attributes, 0)) throw std::runtime_error("P12218319::Executable : Failed to create pipe stdout");
+			//if(! SetHandleInformation(&stdOutRead, HANDLE_FLAG_INHERIT, 0)) throw std::runtime_error("P12218319::Executable : Failed to pipe stdout");
+
+			if(! CreatePipe(&stdInRead, &stdInWrite, &attributes, 0)) throw std::runtime_error("P12218319::Executable : Failed to create pipe stdin");
+			//if(! SetHandleInformation(&stdInWrite, HANDLE_FLAG_INHERIT, 0)) throw std::runtime_error("P12218319::Executable : Failed to pipe stdin");
+
+			// Write data to stdin
+			/*{
+				DWORD bytestoWrite = 0;
+				DWORD bytesWritten = 0;
+				while(! mStdIn->eof()) {
+					*mStdIn >> buffer[bytestoWrite++];
+					if(bytestoWrite == BUFFER_SIZE) {
+						bytestoWrite = 0;
+						if(! WriteFile(stdInWrite, buffer, BUFFER_SIZE, &bytesWritten, NULL)) throw std::runtime_error("P12218319::Executable : Failed to write to stdin");
+					}
+				}
+				if(bytestoWrite > 0) {
+					if (!WriteFile(stdInWrite, buffer, bytestoWrite, &bytesWritten, NULL)) throw std::runtime_error("P12218319::Executable : Failed to write to stdin");
+				}
+			}*/
 			
 			DWORD exitCode;
 			std::string cmd = mPath + ' ' + mParams;
@@ -120,7 +164,33 @@ namespace P12218319 {
 			WaitForSingleObject(processInfo.hProcess, INFINITE);
 			GetExitCodeProcess(processInfo.hProcess, &exitCode);
 
+			/*{
+				// Read data from stdout
+				DWORD bytesRead = 0;
+				do {
+					if(! ReadFile(stdOutRead, buffer, BUFFER_SIZE, &bytesRead, NULL)) std::runtime_error("P12218319::Executable : Failed to read stdout");
+					mStdOut->write(reinterpret_cast<char*>(buffer), bytesRead);
+				} while(bytesRead != 0);
+				mStdOut->write(reinterpret_cast<char*>(buffer), bytesRead);
+			}
+			{
+				// Read data from stderr
+				DWORD bytesRead = 0;
+				do {
+					if(! ReadFile(stdErrRead, buffer, BUFFER_SIZE, &bytesRead, NULL)) std::runtime_error("P12218319::Executable : Failed to read stderr");
+					mStdOut->write(reinterpret_cast<char*>(buffer), bytesRead);
+				} while (bytesRead != 0);
+				mStdOut->write(reinterpret_cast<char*>(buffer), bytesRead);
+			}*/
+
 			// Clean up
+
+			CloseHandle(stdInRead);
+			CloseHandle(stdInWrite);
+			CloseHandle(stdOutRead);
+			CloseHandle(stdOutWrite);
+			CloseHandle(stdErrRead);
+			CloseHandle(stdErrWrite);
 			CloseHandle(processInfo.hProcess);
 			CloseHandle(processInfo.hThread);
 			
