@@ -21,32 +21,32 @@
 namespace P12218319 {
 	// XorshiftC
 
-	RandomiserC::RandomiserC() :
+	P12218319_CALL RandomiserC::RandomiserC() :
 		mSeed(123456789)
 	{
 		srand(mSeed);
 	}
 
-	RandomiserC::RandomiserC(uint32_t aSeed) :
+	P12218319_CALL RandomiserC::RandomiserC(uint32_t aSeed) :
 		mSeed(aSeed)
 	{
 		srand(mSeed);
 	}
 
-	RandomiserC::~RandomiserC() {
+	P12218319_CALL RandomiserC::~RandomiserC() {
 
 	}
 
-	void RandomiserC::SetSeed(const uint64_t aSeed) {
+	void P12218319_CALL RandomiserC::SetSeed(const uint64_t aSeed) {
 		mSeed = static_cast<uint32_t>(aSeed);
 		srand(mSeed);
 	}
 
-	uint64_t RandomiserC::GetSeed() const {
+	uint64_t P12218319_CALL RandomiserC::GetSeed() const {
 		return mSeed;
 	}
 
-	uint64_t RandomiserC::Generate() {
+	uint64_t P12218319_CALL RandomiserC::Generate() {
 		mSeed = rand();
 		return mSeed;
 	}

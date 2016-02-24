@@ -20,29 +20,29 @@
 namespace P12218319 {
 	// XorshiftPlus
 
-	XorshiftPlus::XorshiftPlus() {
+	P12218319_CALL XorshiftPlus::XorshiftPlus() {
 		mSeed[0] = 123456789123456789L;
 		mSeed[1] = 123456789123456789L;
 	}
 
-	XorshiftPlus::XorshiftPlus(uint64_t aSeed)  {
+	P12218319_CALL XorshiftPlus::XorshiftPlus(uint64_t aSeed)  {
 		mSeed[0] = aSeed;
 		mSeed[1] = 123456789123456789L;
 	}
 
-	XorshiftPlus::~XorshiftPlus() {
+	P12218319_CALL XorshiftPlus::~XorshiftPlus() {
 
 	}
 
-	void XorshiftPlus::SetSeed(const uint64_t aSeed) {
+	void P12218319_CALL XorshiftPlus::SetSeed(const uint64_t aSeed) {
 		mSeed[0] = aSeed;
 	}
 
-	uint64_t XorshiftPlus::GetSeed() const {
+	uint64_t P12218319_CALL XorshiftPlus::GetSeed() const {
 		return mSeed[0];
 	}
 
-	uint64_t XorshiftPlus::Generate() {
+	uint64_t P12218319_CALL XorshiftPlus::Generate() {
 		uint64_t x = mSeed[0];
 		uint64_t const y = mSeed[1];
 		mSeed[0] = y;

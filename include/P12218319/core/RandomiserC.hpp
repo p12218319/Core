@@ -25,14 +25,14 @@ namespace P12218319 {
 	private:
 		uint32_t mSeed;
 	protected:
-		virtual uint64_t Generate() override;
+		virtual uint64_t P12218319_CALL Generate() override;
 	public:
-		RandomiserC();
-		RandomiserC(uint32_t);
-		~RandomiserC();
+		P12218319_CALL RandomiserC();
+		P12218319_CALL RandomiserC(uint32_t);
+		P12218319_CALL ~RandomiserC();
 
-		void SetSeed(const uint64_t) override;
-		uint64_t GetSeed() const override;
+		void P12218319_CALL SetSeed(const uint64_t) override;
+		uint64_t P12218319_CALL GetSeed() const override;
 	};
 }
 

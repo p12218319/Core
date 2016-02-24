@@ -22,133 +22,133 @@
 namespace P12218319 {
 	// Randomiser
 
-	Randomiser::~Randomiser() {
+	P12218319_CALL Randomiser::~Randomiser() {
 
 	}
 
-	uint64_t Randomiser::Next64u() {
+	uint64_t P12218319_CALL Randomiser::Next64u() {
 		return Generate();
 	}
 
-	uint32_t Randomiser::Next32u() {
+	uint32_t P12218319_CALL Randomiser::Next32u() {
 		return static_cast<uint32_t>(Generate());
 	}
 
-	uint16_t Randomiser::Next16u() {
+	uint16_t P12218319_CALL Randomiser::Next16u() {
 		return static_cast<uint16_t>(Generate());
 	}
 
-	uint8_t Randomiser::Next8u() {
+	uint8_t P12218319_CALL Randomiser::Next8u() {
 		return static_cast<uint8_t>(Generate());
 	}
 
-	int64_t Randomiser::Next64i() {
+	int64_t P12218319_CALL Randomiser::Next64i() {
 		const uint64_t tmp = Generate();
 		return *reinterpret_cast<const int64_t*>(&tmp);
 	}
 
-	int32_t Randomiser::Next32i() {
+	int32_t P12218319_CALL Randomiser::Next32i() {
 		return static_cast<int32_t>(Next64i());
 	}
 
-	int16_t Randomiser::Next16i() {
+	int16_t P12218319_CALL Randomiser::Next16i() {
 		return static_cast<int16_t>(Next64i());
 	}
 
-	int8_t Randomiser::Next8i() {
+	int8_t P12218319_CALL Randomiser::Next8i() {
 		return static_cast<int8_t>(Next64i());
 	}
 
-	float Randomiser::NextF() {
+	float P12218319_CALL Randomiser::NextF() {
 		//! \todo Implement Randomiser::NextF
 		return 0.f;
 	}
 
-	double Randomiser::NextD() {
+	double P12218319_CALL Randomiser::NextD() {
 		return static_cast<double>(NextF());
 	}
 
-	uint64_t Randomiser::Next64u(const uint64_t aMax) {
+	uint64_t P12218319_CALL Randomiser::Next64u(const uint64_t aMax) {
 		return Next64u() % aMax;
 	}
 
-	uint32_t Randomiser::Next32u(const uint32_t aMax) {
+	uint32_t P12218319_CALL Randomiser::Next32u(const uint32_t aMax) {
 		return static_cast<uint32_t>(Next64u(aMax));
 	}
 
-	uint16_t Randomiser::Next16u(const uint16_t aMax) {
+	uint16_t P12218319_CALL Randomiser::Next16u(const uint16_t aMax) {
 		return static_cast<uint16_t>(Next64u(aMax));
 	}
 
-	uint8_t Randomiser::Next8u(const uint8_t aMax) {
+	uint8_t P12218319_CALL Randomiser::Next8u(const uint8_t aMax) {
 		return static_cast<uint8_t>(Next64u(aMax));
 	}
 
-	int64_t Randomiser::Next64i(const int64_t aMax) {
+	int64_t P12218319_CALL Randomiser::Next64i(const int64_t aMax) {
 		return Next64i() % aMax;
 	}
 
-	int32_t Randomiser::Next32i(const int32_t aMax) {
+	int32_t P12218319_CALL Randomiser::Next32i(const int32_t aMax) {
 		return static_cast<int32_t>(Next64i(aMax));
 	}
 
-	int16_t Randomiser::Next16i(const int16_t aMax) {
+	int16_t P12218319_CALL Randomiser::Next16i(const int16_t aMax) {
 		return static_cast<int16_t>(Next64i(aMax));
 	}
 
-	int8_t Randomiser::Next8i(const int8_t aMax) {
+	int8_t P12218319_CALL Randomiser::Next8i(const int8_t aMax) {
 		return static_cast<int8_t>(Next64i(aMax));
 	}
 
-	float Randomiser::NextF(const float aMax) {
+	float P12218319_CALL Randomiser::NextF(const float aMax) {
 		return std::fmod(NextF(), aMax);
 	}
 
-	double Randomiser::NextD(const double aMax) {
+	double P12218319_CALL Randomiser::NextD(const double aMax) {
 		return static_cast<double>(std::fmod(NextF(), static_cast<float>(aMax)));
 	}
 
-	uint64_t Randomiser::Next64u(const uint64_t aMin, const uint64_t aMax) {
+	uint64_t P12218319_CALL Randomiser::Next64u(const uint64_t aMin, const uint64_t aMax) {
 		return Next64u(aMax - aMin) + aMin;
 	}
 
-	uint32_t Randomiser::Next32u(const uint32_t aMin, const uint32_t aMax) {
+	uint32_t P12218319_CALL Randomiser::Next32u(const uint32_t aMin, const uint32_t aMax) {
 		return static_cast<uint32_t>(Next64u(aMin, aMax));
 	}
 
-	uint16_t Randomiser::Next16u(const uint16_t aMin, const uint16_t aMax) {
+	uint16_t P12218319_CALL Randomiser::Next16u(const uint16_t aMin, const uint16_t aMax) {
 		return static_cast<uint16_t>(Next64u(aMin, aMax));
 	}
 
-	uint8_t Randomiser::Next8u(const uint8_t aMin, const uint8_t aMax) {
+	uint8_t P12218319_CALL Randomiser::Next8u(const uint8_t aMin, const uint8_t aMax) {
 		return static_cast<uint8_t>(Next64u(aMin, aMax));
 	}
 
-	int64_t Randomiser::Next64i(const int64_t aMin, const int64_t aMax) {
+	int64_t P12218319_CALL Randomiser::Next64i(const int64_t aMin, const int64_t aMax) {
 		return Next64i(aMax - aMin) + aMin;
 	}
 
-	int32_t Randomiser::Next32i(const int32_t aMin, const int32_t aMax) {
+	int32_t P12218319_CALL Randomiser::Next32i(const int32_t aMin, const int32_t aMax) {
 		return static_cast<int32_t>(Next64i(aMin, aMax));
 	}
 
-	int16_t Randomiser::Next16i(const int16_t aMin, const int16_t aMax) {
+	int16_t P12218319_CALL Randomiser::Next16i(const int16_t aMin, const int16_t aMax) {
 		return static_cast<int16_t>(Next64i(aMin, aMax));
 	}
 
-	int8_t Randomiser::Next8i(const int8_t aMin, const int8_t aMax) {
+	int8_t P12218319_CALL Randomiser::Next8i(const int8_t aMin, const int8_t aMax) {
 		return static_cast<int8_t>(Next64i(aMin, aMax));
 	}
 
-	float Randomiser::NextF(const float aMin, const float aMax) {
+	float P12218319_CALL Randomiser::NextF(const float aMin, const float aMax) {
 		return NextF(aMax - aMin) + aMin;
 	}
 
-	double Randomiser::NextD(const double aMin, const double aMax) {
+	double P12218319_CALL Randomiser::NextD(const double aMin, const double aMax) {
 		return NextD(aMax - aMin) + aMin;
 	}
 
-	void Randomiser::Next(void* const aPtr, const uint32_t aBytes) {
+	void P12218319_CALL Randomiser::Next(void* const aPtr, const uint32_t aBytes) {
 		uint8_t* ptr = static_cast<uint8_t*>(aPtr);
 		uint32_t bytes = aBytes;
 

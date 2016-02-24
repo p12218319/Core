@@ -20,27 +20,27 @@
 namespace P12218319 {
 	// XorshiftStar
 
-	XorshiftStar::XorshiftStar() :
+	P12218319_CALL XorshiftStar::XorshiftStar() :
 		mSeed(123456789123456789L)
 	{}
 
-	XorshiftStar::XorshiftStar(uint64_t aSeed) :
+	P12218319_CALL XorshiftStar::XorshiftStar(uint64_t aSeed) :
 		mSeed(aSeed)
 	{}
 
-	XorshiftStar::~XorshiftStar() {
+	P12218319_CALL XorshiftStar::~XorshiftStar() {
 
 	}
 
-	void XorshiftStar::SetSeed(const uint64_t aSeed) {
+	void P12218319_CALL XorshiftStar::SetSeed(const uint64_t aSeed) {
 		mSeed = aSeed;
 	}
 
-	uint64_t XorshiftStar::GetSeed() const {
+	uint64_t P12218319_CALL XorshiftStar::GetSeed() const {
 		return mSeed;
 	}
 
-	uint64_t XorshiftStar::Generate() {
+	uint64_t P12218319_CALL XorshiftStar::Generate() {
 		mSeed ^= mSeed >> 12;
 		mSeed ^= mSeed << 25;
 		mSeed ^= mSeed >> 27;

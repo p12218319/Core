@@ -34,18 +34,18 @@ namespace P12218319 {
 		std::string mPath;
 		std::string mParams;
 	public:
-		Executable();
-		Executable(const std::string&);
-		Executable(const std::string&, const std::initializer_list<std::string>);
-		Executable(const std::string&, const std::initializer_list<std::string>, std::istream&, std::ostream&, std::ostream&);
-		P12218319_EXPORT_CALL ~Executable();
+		P12218319_CALL Executable();
+		P12218319_CALL Executable(const std::string&);
+		P12218319_CALL Executable(const std::string&, const std::initializer_list<std::string>);
+		P12218319_CALL Executable(const std::string&, const std::initializer_list<std::string>, std::istream&, std::ostream&, std::ostream&);
+		P12218319_CALL ~Executable();
 		
-		void P12218319_EXPORT_CALL SetPath(const std::string&) throw();
-		void P12218319_EXPORT_CALL AddParameter(const std::string&) throw();
-		void P12218319_EXPORT_CALL SetStandardIn(std::istream&) throw();
-		void P12218319_EXPORT_CALL SetStandardOut(std::ostream&) throw();
-		void P12218319_EXPORT_CALL SetStandardError(std::ostream&) throw();
-		int P12218319_EXPORT_CALL operator()();
+		void P12218319_CALL SetPath(const std::string&) throw();
+		void P12218319_CALL AddParameter(const std::string&) throw();
+		void P12218319_CALL SetStandardIn(std::istream&) throw();
+		void P12218319_CALL SetStandardOut(std::ostream&) throw();
+		void P12218319_CALL SetStandardError(std::ostream&) throw();
+		int P12218319_CALL operator()();
 	};
 }
 #endif

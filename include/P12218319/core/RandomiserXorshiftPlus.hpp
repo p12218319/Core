@@ -25,14 +25,14 @@ namespace P12218319 {
 	private:
 		uint64_t mSeed[2];
 	protected:
-		virtual uint64_t Generate() override;
+		virtual uint64_t P12218319_CALL Generate() override;
 	public:
-		XorshiftPlus();
-		XorshiftPlus(uint64_t);
-		~XorshiftPlus();
+		P12218319_CALL XorshiftPlus();
+		P12218319_CALL XorshiftPlus(uint64_t);
+		P12218319_CALL ~XorshiftPlus();
 
-		void SetSeed(const uint64_t) override;
-		uint64_t GetSeed() const override;
+		void P12218319_CALL SetSeed(const uint64_t) override;
+		uint64_t P12218319_CALL GetSeed() const override;
 	};
 }
 

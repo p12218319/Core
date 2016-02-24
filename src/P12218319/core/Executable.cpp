@@ -16,30 +16,31 @@
    email : p12218319@myemail.dmu.ac.uk
 */
 #include "P12218319/core/Executable.hpp"
+#include <string>
 #include <windows.h>
 
 namespace P12218319 {
 	//Executable
 		
-	Executable::Executable() :
+	P12218319_CALL Executable::Executable() :
 		mStdIn(&std::cin),
-		mStdOut&std::cout),
+		mStdOut(&std::cout),
 		mStdErr(&std::cerr),
 		mPath(),
 		mParams()
 	{}
 	
-	Executable(const std::string& aPath) :
+	P12218319_CALL Executable::Executable(const std::string& aPath) :
 		mStdIn(&std::cin),
-		mStdOut&std::cout),
+		mStdOut(&std::cout),
 		mStdErr(&std::cerr),
 		mPath(aPath),
 		mParams()
 	{}
 	
-	Executable(const std::string& aPath, const std::initializer_list<std::string> aParams) :
+	P12218319_CALL Executable::Executable(const std::string& aPath, const std::initializer_list<std::string> aParams) :
 		mStdIn(&std::cin),
-		mStdOut&std::cout),
+		mStdOut(&std::cout),
 		mStdErr(&std::cerr),
 		mPath(aPath),
 		mParams()
@@ -47,9 +48,9 @@ namespace P12218319 {
 		for(const std::string& param : aParams) AddParameter(param);
 	}
 	
-	Executable(const std::string&, const std::initializer_list<std::string>, std::istream& aStdIn, std::ostream& aStdOut, std::ostream& aStdErr) :
+	P12218319_CALL Executable::Executable(const std::string& aPath, const std::initializer_list<std::string> aParams, std::istream& aStdIn, std::ostream& aStdOut, std::ostream& aStdErr) :
 		mStdIn(&aStdIn),
-		mStdOut&aStdOut),
+		mStdOut(&aStdOut),
 		mStdErr(&aStdErr),
 		mPath(aPath),
 		mParams()
@@ -57,41 +58,41 @@ namespace P12218319 {
 		for(const std::string& param : aParams) AddParameter(param);
 	}
 	
-	P12218319_EXPORT_CALL Executable::~Executable() {
+	P12218319_CALL Executable::~Executable() {
 		
 	}
 	
-	void P12218319_EXPORT_CALL Executable::SetPath(const std::string& aPath) throw() {
+	void P12218319_CALL Executable::SetPath(const std::string& aPath) throw() {
 		mPath = aPath;
 	}
 	
-	void P12218319_EXPORT_CALL Executable::AddParameter(const std::string& aParam) throw() {
+	void P12218319_CALL Executable::AddParameter(const std::string& aParam) throw() {
 		if(mParams.size() != 0) mParams += ' ';
 		mParams += aParam;
 	}
 	
-	void P12218319_EXPORT_CALL Executable::SetStandardIn(std::istream& aStream) throw() {
+	void P12218319_CALL Executable::SetStandardIn(std::istream& aStream) throw() {
 		mStdIn = &aStream;
 	}
 	
-	void P12218319_EXPORT_CALL Executable::SetStandardOut(std::ostream& aStream) throw() {
+	void P12218319_CALL Executable::SetStandardOut(std::ostream& aStream) throw() {
 		mStdOut = &aStream;
 	}
 	
-	void P12218319_EXPORT_CALL Executable::SetStandardError(std::ostream& aStream) throw() {
+	void P12218319_CALL Executable::SetStandardError(std::ostream& aStream) throw() {
 		mStdErr = &aStream;
 	}
 	
-	int P12218319_EXPORT_CALL Executable::operator()() {
+	int P12218319_CALL Executable::operator()() {
 		#if P12218319_OS == P12218319_WINDOWS
 			//! \todo Implement Executable i/o streams
 			
 			// Initialise
-			STARTUPINFO startupInfo;
+			STARTUPINFOA startupInfo;
 			PROCESS_INFORMATION processInfo;
 
-			ZeroMemory(&startupInfo, sizeof(STARTUPINFO));
-			si.cb = sizeof(si);
+			ZeroMemory(&startupInfo, sizeof(STARTUPINFOA));
+			startupInfo.cb = sizeof(STARTUPINFOA);
 			ZeroMemory(&processInfo, sizeof(PROCESS_INFORMATION));
 			
 			DWORD exitCode;
@@ -99,7 +100,7 @@ namespace P12218319 {
 
 			// Start process
 			{
-				const bool started = CreateProcess( 
+				const bool started = CreateProcessA( 
 					NULL,
 					const_cast<char*>(cmd.c_str()),
 					NULL,
@@ -110,14 +111,14 @@ namespace P12218319 {
 					NULL,
 					&startupInfo,
 					&processInfo 
-				));
+				);
 				
 				P12218319_RUNTIME_ASSERT(started, (std::string("P12218319::Executable : Failed to start process") + cmd).c_str());
 			}
 			
 			// Wait for process to end
 			WaitForSingleObject(processInfo.hProcess, INFINITE);
-			GetExitCodeProcess(processInfo.hProcess, &exit_code)
+			GetExitCodeProcess(processInfo.hProcess, &exitCode);
 
 			// Clean up
 			CloseHandle(processInfo.hProcess);
