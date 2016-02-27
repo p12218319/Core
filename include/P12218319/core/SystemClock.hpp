@@ -21,8 +21,8 @@ email : p12218319@myemail.dmu.ac.uk
 #include "P12218319\core\Core.hpp"
 
 namespace P12218319 { namespace systemClock {
-	P12218319_EXPORT_API uint64_t P12218319_CALL Milliseconds();
-	P12218319_EXPORT_API uint64_t P12218319_CALL Microseconds();
-	P12218319_EXPORT_API uint64_t P12218319_CALL Nanoseconds();
+	P12218319_EXPORT_API uint64_t P12218319_CALL Milliseconds() throw();
+	P12218319_EXPORT_API uint64_t P12218319_CALL Microseconds() throw();
+	P12218319_EXPORT_API uint64_t P12218319_CALL Nanoseconds() throw();
 }}
 #endif

@@ -20,15 +20,15 @@ email : p12218319@myemail.dmu.ac.uk
 #include "P12218319\core\SystemClock.hpp"
 
 namespace P12218319 { namespace systemClock {
-	uint64_t P12218319_CALL Milliseconds() {
+	uint64_t P12218319_CALL Milliseconds() throw() {
 		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	}
 
-	uint64_t P12218319_CALL Microseconds() {
+	uint64_t P12218319_CALL Microseconds() throw() {
 		return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	}
 
-	uint64_t P12218319_CALL Nanoseconds() {
+	uint64_t P12218319_CALL Nanoseconds() throw() {
 		return std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	}
 }}
