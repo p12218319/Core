@@ -25,20 +25,21 @@ namespace P12218319 { namespace files {
 	
 	enum {
 		EXISTS				= 1,
-		CAN_READ			= 1 << 1,
-		CAN_WRITE			= 1 << 2,
+		IS_READABLE			= 1 << 1,
+		IS_WRITEABLE		= 1 << 2,
 		IS_FILE				= 1 << 3,
 		IS_DIRECTORY		= 1 << 4,
 
-		CAN_READ_WRITE		= CAN_READ | CAN_WRITE
+		IS_READ_WRITEABLE		= IS_READABLE | IS_WRITEABLE
 	};
 
-	P12218319_EXPORT_API uint32_t P12218319_CALL CheckAttributes(const std::string&) throw();
-	P12218319_EXPORT_API void P12218319_CALL CreateFile(const std::string&);
-	P12218319_EXPORT_API void P12218319_CALL CreateDirectory(const std::string&);
-	P12218319_EXPORT_API void P12218319_CALL DeleteFile(const std::string&);
-	P12218319_EXPORT_API void P12218319_CALL DeleteDirectory(const std::string&);
-	P12218319_EXPORT_API void P12218319_CALL DeleteDirectoryRecursive(const std::string&);
+	P12218319_EXPORT_API uint32_t P12218319_CALL GetFileSize(const std::string&) throw();
+	P12218319_EXPORT_API uint32_t P12218319_CALL GetFileAttributes(const std::string&) throw();
+	P12218319_EXPORT_API bool P12218319_CALL CreateFile(const std::string&, const uint32_t) throw();
+	P12218319_EXPORT_API bool P12218319_CALL CreateDirectory(const std::string&) throw();
+	P12218319_EXPORT_API bool P12218319_CALL DeleteFile(const std::string&) throw();
+	P12218319_EXPORT_API bool P12218319_CALL DeleteDirectory(const std::string&) throw();
+	P12218319_EXPORT_API bool P12218319_CALL DeleteDirectoryRecursive(const std::string&) throw();
 	P12218319_EXPORT_API void P12218319_CALL Move(const std::string&, const std::string&);
 	P12218319_EXPORT_API void P12218319_CALL Copy(const std::string&, const std::string&);
 	P12218319_EXPORT_API void P12218319_CALL Rename(const std::string&, const std::string&);
